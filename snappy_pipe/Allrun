@@ -1,0 +1,16 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+./run
+
+restore0Dir
+
+runApplication decomposePar
+
+runApplication mpirun --oversubscribe -np 12 XiFoam -parallel
+
+runApplication reconstructPar
+
+#------------------------------------------------------------------------------
